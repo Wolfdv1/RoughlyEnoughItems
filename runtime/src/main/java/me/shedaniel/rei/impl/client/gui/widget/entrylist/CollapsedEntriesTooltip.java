@@ -23,6 +23,7 @@
 
 package me.shedaniel.rei.impl.client.gui.widget.entrylist;
 
+import com.mojang.blaze3d.vertex.ByteBufferBuilder;
 import com.mojang.blaze3d.vertex.Tesselator;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.common.entry.EntryStack;
@@ -72,7 +73,7 @@ public class CollapsedEntriesTooltip implements ClientTooltipComponent, TooltipC
             i++;
             if (i / w > 3 - 1) {
                 graphics.pose().translate(0, 0, 200);
-                MultiBufferSource.BufferSource source = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
+                MultiBufferSource.BufferSource source = MultiBufferSource.immediate(new ByteBufferBuilder(4096));
                 Component text = Component.literal("+" + (stack.getIngredient().size() - w * 3 + 1)).withStyle(ChatFormatting.GRAY);
                 font.drawInBatch(text, x1 + entrySize / 2 - font.width(text) / 2, y1 + entrySize / 2 - 1, -1, true, graphics.pose().last().pose(), source, Font.DisplayMode.NORMAL, 0, 15728880);
                 source.endBatch();

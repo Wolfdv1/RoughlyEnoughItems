@@ -23,6 +23,7 @@
 
 package me.shedaniel.rei.impl.client.gui.widget.region;
 
+import com.mojang.blaze3d.vertex.ByteBufferBuilder;
 import com.mojang.blaze3d.vertex.Tesselator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -62,7 +63,7 @@ public class RegionRenderingDebugger {
             Component debugText = Component.literal(String.format("%d entries, avg. %.0fns, ttl. %.2fms, %s fps", size.getValue(), lastAverageDebugTime, lastTotalDebugTime, minecraft.fpsString.split(" ")[0]));
             int stringWidth = font.width(debugText);
             graphics.fillGradient(Math.min(x, minecraft.screen.width - stringWidth - 2), y, x + stringWidth + 2, y + font.lineHeight + 2, -16777216, -16777216);
-            MultiBufferSource.BufferSource immediate = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
+            MultiBufferSource.BufferSource immediate = MultiBufferSource.immediate(new ByteBufferBuilder(4096));
             graphics.pose().pushPose();
             graphics.pose().translate(0.0D, 0.0D, 500.0D);
             Matrix4f matrix = graphics.pose().last().pose();

@@ -28,6 +28,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.ByteBufferBuilder;
 import it.unimi.dsi.fastutil.Pair;
 import me.shedaniel.clothconfig2.api.ModifierKeyCode;
 import me.shedaniel.clothconfig2.api.animator.ValueAnimator;
@@ -345,7 +346,7 @@ public class DefaultDisplayViewingScreen extends AbstractDisplayViewingScreen {
                     if (bounds.contains(mouseX, mouseY)) {
                         graphics.fillGradient(bounds.x, bounds.y, bounds.getMaxX(), bounds.getMaxY(), 1744822402, 1744822402);
                         Component text = Component.translatable("text.rei.release_export", export.getLocalizedName().plainCopy().getString());
-                        MultiBufferSource.BufferSource immediate = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
+                        MultiBufferSource.BufferSource immediate = MultiBufferSource.immediate(new ByteBufferBuilder(4096));
                         graphics.pose().pushPose();
                         graphics.pose().translate(0.0D, 0.0D, 10.0D);
                         Matrix4f matrix4f = graphics.pose().last().pose();

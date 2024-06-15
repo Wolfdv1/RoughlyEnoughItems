@@ -24,6 +24,7 @@
 package me.shedaniel.rei.impl.client.gui.screen;
 
 import com.google.common.collect.Lists;
+import com.mojang.blaze3d.vertex.ByteBufferBuilder;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.datafixers.util.Pair;
 import dev.architectury.fluid.FluidStack;
@@ -412,7 +413,7 @@ public abstract class AbstractDisplayViewingScreen extends Screen implements Dis
                     int y1 = y + 13 + (i / w) * entrySize;
                     i++;
                     if (i / w > 5) {
-                        MultiBufferSource.BufferSource source = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
+                        MultiBufferSource.BufferSource source = MultiBufferSource.immediate(new ByteBufferBuilder(4096));
                         Component text = Component.literal("+" + (widget.getEntries().size() - w * 6 + 1)).withStyle(ChatFormatting.GRAY);
                         font.drawInBatch(text, x1 + entrySize / 2 - font.width(text) / 2, y1 + entrySize / 2 - 1, -1, true, graphics.pose().last().pose(), source, Font.DisplayMode.NORMAL, 0, 15728880);
                         source.endBatch();

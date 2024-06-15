@@ -23,6 +23,7 @@
 
 package me.shedaniel.rei.impl.client.gui.widget.favorites.panel;
 
+import com.mojang.blaze3d.vertex.ByteBufferBuilder;
 import com.mojang.blaze3d.vertex.Tesselator;
 import me.shedaniel.clothconfig2.api.animator.NumberAnimator;
 import me.shedaniel.clothconfig2.api.animator.ValueAnimator;
@@ -68,7 +69,7 @@ public abstract class FadingFavoritesPanelButton extends WidgetWithBounds {
         int buttonColor = 0xFFFFFF | (Math.round(0x74 * alpha.floatValue()) << 24);
         graphics.fillGradient(bounds.x, bounds.y, bounds.getMaxX(), bounds.getMaxY(), buttonColor, buttonColor);
         if (isVisible()) {
-            MultiBufferSource.BufferSource bufferSource = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
+            MultiBufferSource.BufferSource bufferSource = MultiBufferSource.immediate(new ByteBufferBuilder(4096));
             renderButtonText(graphics, bufferSource);
             bufferSource.endBatch();
         }

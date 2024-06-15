@@ -29,7 +29,7 @@ import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
 
 public class RoughlyEnoughItemsInitializer {
-    public static final String COMPATIBLE_MC_VERSION_LOW = "1.20";
+    public static final String COMPATIBLE_MC_VERSION_LOW = "1.21";
     public static final String COMPATIBLE_MC_VERSION_HIGH = "1.21";
     
     public static void onInitialize() {
@@ -38,7 +38,7 @@ public class RoughlyEnoughItemsInitializer {
         RoughlyEnoughItemsState.isDev = adapter.isDev();
         
         String minecraftVersion = adapter.getMinecraftVersion();
-        if (minecraftVersion.startsWith("1.") && (adapter.compareVersions(minecraftVersion, COMPATIBLE_MC_VERSION_LOW) < 0 || adapter.compareVersions(minecraftVersion, COMPATIBLE_MC_VERSION_HIGH) >= 0)) {
+        if (minecraftVersion.startsWith("1.") && (adapter.compareVersions(minecraftVersion, COMPATIBLE_MC_VERSION_LOW) < 0 || adapter.compareVersions(minecraftVersion, COMPATIBLE_MC_VERSION_HIGH) > 0)) {
             RoughlyEnoughItemsState.error("Your current REI version (for >=" + COMPATIBLE_MC_VERSION_LOW + " and <" + COMPATIBLE_MC_VERSION_HIGH + ") is not compatible with your current Minecraft version (" + minecraftVersion + ").");
         }
         

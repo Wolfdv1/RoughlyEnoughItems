@@ -25,6 +25,7 @@ package me.shedaniel.rei.impl.client.gui.screen.collapsible;
 
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
+import com.mojang.blaze3d.vertex.ByteBufferBuilder;
 import com.mojang.blaze3d.vertex.Tesselator;
 import me.shedaniel.clothconfig2.ClothConfigInitializer;
 import me.shedaniel.clothconfig2.api.scroll.ScrollingContainer;
@@ -118,7 +119,7 @@ public class CollapsibleEntriesScreen extends Screen {
         {
             Component addText = Component.literal(" + ");
             addRenderableWidget(new Button(width - 4 - 20, 4, 20, 20, addText, $ -> {
-                setupCustom(new ResourceLocation("custom:" + UUID.randomUUID()), "", new ArrayList<>(), this.configObject, () -> {
+                setupCustom(ResourceLocation.tryParse("custom:" + UUID.randomUUID()), "", new ArrayList<>(), this.configObject, () -> {
                     this.prepareWidgets(configObject);
                     this.dirty = true;
                 });
@@ -185,7 +186,7 @@ public class CollapsibleEntriesScreen extends Screen {
             Component debugText = Component.literal(String.format("%s fps", minecraft.fpsString.split(" ")[0]));
             int stringWidth = font.width(debugText);
             graphics.fillGradient(minecraft.screen.width - stringWidth - 2, 32, minecraft.screen.width, 32 + font.lineHeight + 2, -16777216, -16777216);
-            MultiBufferSource.BufferSource immediate = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
+            MultiBufferSource.BufferSource immediate = MultiBufferSource.immediate(new ByteBufferBuilder(4096));
             graphics.pose().pushPose();
             Matrix4f matrix = graphics.pose().last().pose();
             font.drawInBatch(debugText.getVisualOrderText(), minecraft.screen.width - stringWidth, 32 + 2, -1, false, matrix, immediate, Font.DisplayMode.NORMAL, 0, 15728880);

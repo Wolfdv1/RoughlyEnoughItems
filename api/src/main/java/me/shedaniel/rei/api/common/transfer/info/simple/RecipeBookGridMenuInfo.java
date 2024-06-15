@@ -31,33 +31,33 @@ import net.minecraft.world.inventory.RecipeBookMenu;
 import net.minecraft.world.item.ItemStack;
 
 @Deprecated(forRemoval = true)
-public class RecipeBookGridMenuInfo<T extends RecipeBookMenu<?>, D extends SimpleGridMenuDisplay> implements SimpleGridMenuInfo<T, D> {
+public class RecipeBookGridMenuInfo<T extends RecipeBookMenu<?,?>, D extends SimpleGridMenuDisplay> implements SimpleGridMenuInfo<T, D> {
     private final D display;
-    
+
     public RecipeBookGridMenuInfo(D display) {
         this.display = display;
     }
-    
+
     @Override
     public int getCraftingResultSlotIndex(T menu) {
         return menu.getResultSlotIndex();
     }
-    
+
     @Override
     public int getCraftingWidth(T menu) {
         return menu.getGridWidth();
     }
-    
+
     @Override
     public int getCraftingHeight(T menu) {
         return menu.getGridHeight();
     }
-    
+
     @Override
     public void clearInputSlots(T menu) {
         menu.clearCraftingContent();
     }
-    
+
     @Override
     public void populateRecipeFinder(MenuInfoContext<T, ?, D> context, RecipeFinder finder) {
         context.getMenu().fillCraftSlotsStackedContents(new StackedContents() {
@@ -67,7 +67,7 @@ public class RecipeBookGridMenuInfo<T extends RecipeBookMenu<?>, D extends Simpl
             }
         });
     }
-    
+
     @Override
     public D getDisplay() {
         return display;

@@ -492,17 +492,16 @@ public class TextFieldWidget extends WidgetWithBounds implements TickableWidget,
         int g = (color >> 8 & 255);
         int b = (color & 255);
         Tesselator tesselator = Tesselator.getInstance();
-        BufferBuilder buffer = tesselator.getBuilder();
         RenderSystem.enableBlend();
         RenderSystem.blendFuncSeparate(770, 771, 1, 0);
         Matrix4f matrix = graphics.pose().last().pose();
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
-        buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
-        buffer.vertex(matrix, x1, y2, 50f).color(r, g, b, 120).endVertex();
-        buffer.vertex(matrix, x2, y2, 50f).color(r, g, b, 120).endVertex();
-        buffer.vertex(matrix, x2, y1, 50f).color(r, g, b, 120).endVertex();
-        buffer.vertex(matrix, x1, y1, 50f).color(r, g, b, 120).endVertex();
-        tesselator.end();
+        BufferBuilder buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+        buffer.addVertex(matrix, x1, y2, 50f).setColor(r, g, b, 120);
+        buffer.addVertex(matrix, x2, y2, 50f).setColor(r, g, b, 120);
+        buffer.addVertex(matrix, x2, y1, 50f).setColor(r, g, b, 120);
+        buffer.addVertex(matrix, x1, y1, 50f).setColor(r, g, b, 120);
+
         RenderSystem.disableBlend();
     }
     
